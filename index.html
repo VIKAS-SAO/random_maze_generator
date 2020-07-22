@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Maze Path Finder</title>
+    <link rel="icon" href="logo.png">
+
+ </head>
+<body>
+    <div class="top">
+        <div class="buttons">
+            <button id="clearGrid" class="button" >Clear Grid</button>
+            <button id="createGrid"  class="button" >Create Grid</button> 
+            <button id="createPath"  class="button" >Create Path</button> 
+        </div>
+        <div class="scrolls">
+            <div class="slidecontainer">
+                SPEED :   <input type="range" min="10" max="100" value="50" class="slider" id="scrollSpeed">
+              </div>
+             <div class="slidecontainer">
+                GRID SIZE :  <input type="range" min="10" max="40" value="50" class="slider" id="scrollSize">
+              </div> 
+        </div> 
+    </div>
+    <canvas id="canvas"></canvas>
+    <div class="footer">
+         <p>by - VIKAS SAO</p>
+    </div>
+</body>
+
+  <link rel="stylesheet" href="index.css">
+ <script type="module" src="index.js"></script>
+ 
+</html>
