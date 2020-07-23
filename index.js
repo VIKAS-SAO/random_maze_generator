@@ -7,6 +7,7 @@ let cols ,rows;
 var w  =20;
 let grid=[]
 let stack = [];
+let finalStack =[]
 let speed = 20;
 
   
@@ -32,10 +33,11 @@ createGridButton.addEventListener('click',function(){
     
     let timer  =  setInterval(() => {
          draw()
-    }, 102-speed);
+    }, 1/speed);
  }) 
  createPathButton.addEventListener('click',function(){
-  animatePath(stack)
+     console.log(finalStack)
+  animatePath(finalStack)
  })  
 
 // outer component functions 
@@ -74,23 +76,23 @@ function removeWalls(current ,next){
 }
 
 // animating the path
-function animatePath(stack){
-    let index = 0;
+function animatePath(stacks){
+     let index = 0;
     context.beginPath();
 context.moveTo(w/2,w/2);
     let animate = setInterval(() => {
              context.strokeStyle = 'yellow'
            context.lineWidth = w/3;
-           context.lineTo(stack[index].x*w+w/2 ,stack[index].y*w+w/2 )
+           context.lineTo(stacks[index].x*w+w/2 ,stacks[index].y*w+w/2 )
            context.stroke()
              index++;
-            if(index>=stack.length-1){ context.closePath() ;
+            if(index>=stacks.length){ context.closePath() ;
                     for(let i=0;i<10000;i++){
                          clearInterval(animate)
                     }
             }
     
-    }, 102-speed);
+    },100/speed);
 
 }
 
@@ -191,19 +193,22 @@ function draw(){
         // on reaching the destination 
         if(current.x ==cols-1 && current.y ==rows-1){
             // to print the elements in stack to get the coorect path
-              // for(let i=0;i<stack.length;i++){
-              //     console.log(stack[i].x , stack[i].y)
-              // }
-              createPathButton.removeAttribute('disabled')
-
-              for(let i=0;i<10000;i++){
-                  window.clearInterval(i)
+            finalStack = []
+              for(let i=0;i<stack.length;i++){
+                 // console.log(stack[i].x , stack[i].y)
+                  finalStack.push(stack[i])
               }
-            //  animatePath(stack)
+               
+               //console.log(finalStack)
+               
+            //   for(let i=0;i<10000;i++){
+            //       window.clearInterval(i)
+            //   }
+           // animatePath(stack)
              // return;
         }  
   
-    if(next  ){ 
+    if( next ){ 
             next.visited = true;
             stack.push(next); 
             removeWalls(current , next); 
@@ -211,6 +216,13 @@ function draw(){
     }
       else if( !next && stack.length>0){
         current = stack.pop();
+    }
+    else{
+        for(let i=0;i<10000;i++){
+            window.clearInterval(i)
+        }
+        createPathButton.removeAttribute('disabled')
+
     }
  
 
